@@ -159,48 +159,8 @@ Lista * Lista::clonar(){
    return nueva;
 }	   
 
-void Lista::aplanar(Lista & destino, Lista & origen){
-	// aplana la lista origen y poner sus elementos ( que no son sub-listas ) en lista destino
-   Iterador finalOrigen = origen.end();
-   Lista * listaLocal = 0;
-   for(Iterator i = origen.begin(); i!=finalOrigen; ++i){
-	   listaLocal = dynamic_cast<Lista *>(*i);
-	   if(listaLocal){
-		   aplanar(destino,listaLocal);
-	   }
-	   else {
-		   destino+= *i;
-	   }
-   } 
-}
-
-double Lista::distancia(Elemento * elemento){
-   Lista * otraLista = dynamic_cast< Lista * >( elemento );
-   Lista lista1;
-   Lista lista2;
-   double distanciaPromedio = 1.0;
-   aplanar(lista1,*this);
-   if(otraLista){
-	   aplanar(lista2,otraLista);
-   }
-   else {
-	   lista2+=elemento;
-   }
-   int n = 0;
-   double suma = 0.0;
-   Iterador final1 = lista1.end();
-   Iterador final2 = lista2.end();
-
-   for(Iterator i = lista1.begin(); i!=final1; ++i){
-	    for(Iterator j = lista2.begin(); j!=final2; ++j){
-	       suma+= (*i)->distancia( *j );
-	       ++n;
-        }   
-   } 
-   if(n!=0){
-	   distanciaPromedio = suma/n;
-   }
-   return distanciaPromedio;
+double Lista::distancia(Elemento *){
+  // :)   Don't worry be happy...
 }
 
 Lista & Lista::operator+=(Elemento * elemento){
@@ -253,30 +213,30 @@ Lista & Lista::insertar(Lista::Iterator& i, Elemento * elemento){
 	   
 	   
 Lista & Lista::borrar(Lista::Iterator& i){
-	Elemento * elementoQueVaMorir;
 	Celda * victima = 0;
-	if(primera){
-		if(i.actual != 0){
-			if(i.actual==primera){
-				i.actual = i.actual->siguiente;
-				elementoQueVaMorir = pop_front();
-				delete elementoQueVaMorir;
+	Elemento * elemento = 0;
+	if(primera!=0){
+	   if(i.actual == primera){
+		  elemento = pop_front();
+		  delete elemento;
+	   }
+	   else {
+		  if(i.actual==ultima){
+  		     elemento = pop_back();
+		     delete elemento;
+		  }
+		  else {
+			if(i.actual!=0){
+			   i.actual->anterior->siguiente = i.actual->siguiente;
+			   i.actual->siguiente->anterior = i.actual->anterior;
+			   victima = i.actual;
+			   ++i;   
+			   delete victima;			   
+			//   delete (i++).actual; // o en lugar de los dos de antes ...esto esta muy fino...
+
 			}
-			else{
-				if(i.actual==ultima){
-					i.actual = i.actual->siguiente;
-					elementoQueVaMorir = pop_back();
-					delete elementoQueVaMorir;
-				}
-				else{
-					i.actual->anterior->siguiente = i.actual->siguiente;
-					i.actual->siguiente->anterior = i.actual->anterior;
-					victima = i.actual;
-					i.actual = i.actual->siguiente;
-					delete victima;
-				}
-			}
-		}
+		  }
+	   }
 	}
     return *this;
 }
