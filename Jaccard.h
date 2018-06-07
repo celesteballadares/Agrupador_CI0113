@@ -1,10 +1,10 @@
 #ifndef JACCARD
 #define JACCARD
-#include "Perro.h"
+#include "Animal.h"
 class Jaccard{
 	private:
-		int sacarUnion(Animal*,Animal*);
-		int sacarInterseccion(Animal*,Animal*);
+		int sacarUnion(Animal&,Animal&);
+		int sacarInterseccion(Animal&,Animal&);
 	public:
 		Jaccard();
 		~Jaccard();

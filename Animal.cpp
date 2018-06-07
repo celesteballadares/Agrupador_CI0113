@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <stdio.h>
+#include "Jaccard.h"
 using namespace std;
 
 Animal::Animal(){
@@ -13,34 +14,7 @@ Animal::Animal(string nombre){
 	this->nombre = nombre;
 	colores = 0;
 }
-/*
-void Animal::setUnColor(string color1){
-	if(!colores){
-		colores = new string[3];
-		colores[0] = color1;
-		colores[1] = "";
-		colores[2] = "";
-	}
-}
 
-void Animal::setDosColores(string color1, string color2){
-	if(!colores){
-		colores = new string[3];
-		colores[0] = color1;
-		colores[1] = color2;
-		colores[2] = "";
-	}
-}
-
-void Animal::setTresColores(string color1, string color2, string color3){
-	if(!colores){
-		colores = new string[3];
-		colores[0] = color1;
-		colores[1] = color2;
-		colores[2] = color3;
-	}
-}
-*/
 void Animal::_init(string color1, string color2, string color3){
 	if(!colores){
 		colores = new string[3];
@@ -73,22 +47,37 @@ string Animal::operator[](int i){
 	return local;
 }
 
-/*
-string Animal::getColor1(){
-	return colores[0];
-}
-
-string Animal::getColor2(){	
-	return colores[1];	
-}
-
-string Animal::getColor3(){
-	return colores[2];
-}
-*/
 
 Animal::~Animal(){
-	cout << "Se entro al destructor" << endl;
-	delete[] colores;
+	if(colores){
+		delete[] colores;
+	}
 }
 
+ostream& Animal::imprimir(ostream& salida){
+	salida << "El nombre del animal es: " << nombre << endl;
+	salida << "Sus colores son: ";
+	for(int i = 0; i < 3; ++i){
+		if(colores[i] != ""){
+			salida << colores[i] << " ";
+		}
+	}
+	salida << endl;
+	return salida;
+}
+
+istream& Animal::cargar(istream& entrada){
+	//falta el cargar 
+	return entrada;
+}
+
+double Animal::distancia(Elemento* otro){
+	Animal* animalPtr = dynamic_cast<Animal*>(otro);
+	Jaccard jaccard;
+	return jaccard.aplicarAlgoritmo(this,animalPtr);
+}
+
+Animal* Animal::clonar(){
+	Animal* animalPtr = new Animal(this->nombre);
+	return animalPtr;
+}

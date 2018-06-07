@@ -51,9 +51,8 @@ using namespace std;
 		double Palabra::distancia(Elemento* otro){ // En si ya este metodo esta completo no se porque....
 			double distanciaDeBiagramas = 1.0;
 			Palabra* local1 = dynamic_cast<Palabra*>(otro);
-			distanciaDeBiagramas = 1 - (double)((2 * (double)this->calcularInterseccion(local1)) / ((double)this->calcularCardinalidad() + (double)local1->calcularCardinalidad()));
+			distanciaDeBiagramas = 1 - ((2 * this->calcularInterseccion(local1)) / (this->calcularCardinalidad() + local1->calcularCardinalidad()));
 			//sigo sin saber porque lo de arriba no me da double pero ya los metodos se supone que estan bien 
-			cout << distanciaDeBiagramas << endl;  
 			return distanciaDeBiagramas;	
 		}
 		

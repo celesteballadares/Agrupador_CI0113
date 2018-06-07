@@ -9,12 +9,14 @@ class Vector : public Elemento{
 		double distanciaPlanoCartesiano(Vector*);
 	public:
 		Vector();
-		Vector(double*);
+		Vector(double*, int);
 	    Vector* clonar();	   
  	    double distancia(Elemento*);
 		ostream& imprimir(ostream&);
 	    istream& cargar(istream&);
 		double getValor(int);
+		double operator[](int indice); /** Método sobrecargado para usar la función getValor */
 		void setValor(double, int);
+		int getLength(); /** Devuelve la cantidad de celdas del vector double */
 };
 #endif

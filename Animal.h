@@ -2,26 +2,26 @@
 #define ANIMAL
 #include <iostream>
 #include <string>
+#include "Elemento.h"
 using namespace std;
-class Animal{
-	friend ostream& operator<<(ostream & salida, Animal* animal){
-		return animal->imprimir(salida); // invoca al método polimorfico
-	}
+class Animal : public Elemento{
 	
 	protected:
 		string nombre;
 		string* colores;
+		void _init(string color1, string color2, string color3);
 	public:
 		Animal();
 		Animal(string);
 		virtual ~Animal();
-		void _init(string color1, string color2, string color3);
 		void setUnColor(string);
 		void setDosColores(string,string);
 		void setTresColores(string,string,string);
-		string operator[](int i);
-		virtual ostream& imprimir(ostream&) = 0;
-
+		ostream& imprimir(ostream&);
+		istream& cargar(istream&);
+		double distancia(Elemento*);
+		Animal* clonar();
+		string operator[](int);
 };
 #endif
 

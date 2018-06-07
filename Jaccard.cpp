@@ -1,5 +1,5 @@
 #include "Jaccard.h"
-#include "Perro.h"
+#include "Animal.h"
 #include <iostream>
 #include <string>
 using namespace std;
@@ -12,10 +12,10 @@ Jaccard::~Jaccard(){
 	cout << "Se entro al metodo destructor" << endl;
 }
 
-int Jaccard::sacarInterseccion(Animal* animal1, Animal* animal2){
+int Jaccard::sacarInterseccion(Animal& animal1, Animal& animal2){
 	int interseccion = 0;
-	string local1[] = {animal1->getColor1(), animal1->getColor2(), animal1->getColor3()};
-	string local2[] = {animal2->getColor1(), animal2->getColor2(), animal2->getColor3()};
+	string local1[] = {animal1[0], animal1[1], animal1[2]};
+	string local2[] = {animal2[0], animal2[1], animal2[2]};
 	
 	for(int n = 0; n < 3; ++n){
 		for(int i = 0; i < 3; ++i){
@@ -30,9 +30,9 @@ int Jaccard::sacarInterseccion(Animal* animal1, Animal* animal2){
 	return interseccion;
 }
 
-int Jaccard::sacarUnion(Animal* animal1, Animal* animal2){
-	string local1[] = {animal1->getColor1(), animal1->getColor2(), animal1->getColor3()};
-	string local2[] = {animal2->getColor1(), animal2->getColor2(), animal2->getColor3()};
+int Jaccard::sacarUnion(Animal& animal1, Animal& animal2){
+	string local1[] = {animal1[0], animal1[1], animal1[2]};
+	string local2[] = {animal2[0], animal2[1], animal2[2]};
 	int unionn = 0;
 	for(int f = 0;f < 3; ++f){
 		if(local1[f] != ""){
@@ -54,5 +54,5 @@ int Jaccard::sacarUnion(Animal* animal1, Animal* animal2){
 }
 
 double Jaccard::aplicarAlgoritmo(Animal* animal1, Animal* animal2){
-	return sacarInterseccion(animal1,animal2) / sacarUnion(animal1,animal2);
+	return (double)sacarInterseccion(*animal1,*animal2) / sacarUnion(*animal1,*animal2);
 }
