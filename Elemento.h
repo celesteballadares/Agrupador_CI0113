@@ -1,6 +1,7 @@
 #ifndef _ElementoAgrupable
 #define _ElementoAgrupable
 #include<iostream>
+#include "Producto.h"
 // EN PROCESO DE DISEÑO
 using namespace std;
 
@@ -19,10 +20,8 @@ class Elemento : public Producto {
 	   virtual istream & cargar(istream &)=0;
 	
 	public:
-	   virtual Elemento( const Elemento &)=0;
-	   virtual ~Elemento(){};
+	   ~Elemento(){};
 	   virtual Elemento * clonar()=0;	   
  	   virtual double distancia(Elemento *)=0;	   
-
 };
 #endif
