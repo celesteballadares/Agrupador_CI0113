@@ -7,6 +7,7 @@ using namespace std;
 #include "Visualizador.h"
 #include "Lista.h"
 
+
 int main( int argc, char ** argv){
    if(argc < 5){
       cout << "Uso: agrupador elemento algoritmoDeClustering visualizador datos.txt"<< endl;	   
@@ -41,9 +42,14 @@ int main( int argc, char ** argv){
 		  Agrupador * agrupador = dynamic_cast<Agrupador *>(agrupadores->producir());
 		  Visualizador * visualizador = dynamic_cast<Visualizador *>(visualizadores->producir());	  
 		  
+		  ifstream entrada(nombreArchivo);
+		  
+		  int n;
+		  entrada >> n;
+		  
 		  
 		  // Insertar una copia de cada elemento obtenido desde el archivo nombreArchivo
-		  Lista * lista = new Lista( elemento, nombreArchivo);
+		  Lista * lista = new Lista( elemento, entrada, n);
 
 		  Lista * grupos = agrupador->agrupar(lista);
 		  

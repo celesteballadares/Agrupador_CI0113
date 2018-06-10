@@ -2,7 +2,7 @@
 #define _PRODUCTO_ABSTRACTO
 #include <cstring>
 class Producto {
-	
+public: 
+   virtual ~Producto(){};	
 };
-
 #endif
