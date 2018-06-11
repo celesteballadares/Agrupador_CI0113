@@ -6,10 +6,7 @@
 using namespace std;
 
 class Lista : public Elemento {
-   class Iterator;
-   
-   friend class Iterator;   	
-
+	  
    private:
       class Celda;
 	  
@@ -19,25 +16,28 @@ class Lista : public Elemento {
             Celda * anterior;
             Celda * siguiente;
             Celda( Elemento * );
-            ~Celda();			
-	   
+            ~Celda();				   
       };	
 
       Celda * primera;
 	  Celda * ultima;
-	
+	  void destruir();
+	  void aplanar(Lista &);
     protected:
 	   ostream & imprimir(ostream &);
 	   istream & cargar(istream &);
 	
-	public:
-	   class Iterator(){
+	public:   
+	
+	   class Iterator;
+       friend class Iterator;
+	   class Iterator{
 		  friend class Lista;
 		  private:
-              Celda * actual;
-		      Iterator();		      
-			  Iterator( Celda * );
+              Celda * actual;		     	      			 
 		  public:
+		      Iterator();	
+		      Iterator( Celda * );
               Elemento * operator*();
               Iterator &operator++();
               Iterator &operator--();
@@ -47,15 +47,16 @@ class Lista : public Elemento {
 			  int operator!=(const Iterator & otro){
 				  return !(*this==otro);
 			  } 
+			  Iterator & operator=(Elemento *);
 	   };
 	   Iterator begin();
 	   Iterator end();
 	   Lista();
-	   Lista( Elemento *, const char *); // Carga elementos desde el archivo y rellena la lista
-	   Lista( const Lista & );
+	   Lista( Elemento *, istream &, int n); // Carga elementos desde el archivo y rellena la lista
 	   ~Lista();
 	   Lista * clonar();	   
  	   double distancia(Elemento *);
+	   Lista & operator=(Elemento &);
        Lista & operator+=(Elemento *);  // Es un push_back que agrega al final de la lista 
 	   Lista & insertar(Iterator&, Elemento *); // inserta una copia del elemento
 	   Lista & borrar(Iterator&);
